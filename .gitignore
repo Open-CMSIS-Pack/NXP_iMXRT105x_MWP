@@ -1,0 +1,6 @@
+# Documentation build files
+/Documentation/html/
+
+# Pack build files
+/build/
+/output/

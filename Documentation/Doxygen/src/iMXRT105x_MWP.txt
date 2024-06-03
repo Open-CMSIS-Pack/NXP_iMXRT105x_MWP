@@ -1,0 +1,441 @@
+/*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
+/**
+\mainpage Introduction
+ 
+This manual explains how to create <a target="_blank" href="https://arm-software.github.io/MDK-Middleware/latest/General/index.html">MDK-Middleware</a> projects
+for NXP's i.MXRT105x series. NXP provides device family packs (DFP) and a comprehensive SDK that contain CMSIS-Drivers for
+I2C, SPI, and USART. This software pack adds CMSIS-Drivers for Ethernet MAC, GPIO, FLEXCAN, MCI, USB Host and USB Device for the 
+above mentioned device series, based on the original NXP peripheral drivers (fsl) and USB middleware drivers.
+
+The diagram below is an overview of the complete software stack:
+
+\image html NXPSDK_overview.png
+
+\section reqs Requirements
+
+The following
+<a target="_blank" href="https://arm-software.github.io/CMSIS_6/latest/General/index.html"><b>software packs</b></a> are required:
+
+<table summary="">
+  <tr>
+    <th style="white-space:nowrap;">Software pack</th>    <th>Description</th>
+  </tr>
+  <tr>
+    <td>\b <a target="_blank" href="\keilcom/dd2/pack/#/">ARM.CMSIS.6.0.0 (or higher)</a></td>         <td>Arm CMSIS</td>
+  </tr>
+  <tr>
+    <td>\b <a target="_blank" href="\keilcom/dd2/pack/#/">ARM.CMSIS-Driver.2.9.0 (or higher)</a></td>  <td>Arm CMSIS Drivers for external devices</td>
+  </tr>
+  <tr>
+    <td>\b <a target="_blank" href="\keilcom/dd2/pack/#/">NXP.MIMXRT1051_DFP.18.0.0</a></td>           <td>Device family pack for NXP i.MXRT1051</td>
+  </tr>
+  <tr>
+    <td>\b <a target="_blank" href="\keilcom/dd2/pack/#/">NXP.MIMXRT1052_DFP.18.0.0</a></td>           <td>Device family pack for NXP i.MXRT1052</td>
+  </tr>
+  </tr>
+</table>
+
+For pin and clock configuration of the i.MXRT devices, the
+<a target="_blank" href="https://www.nxp.com/design/software/development-software/mcuxpresso-software-and-tools-/mcuxpresso-config-tools-pins-clocks-peripherals:MCUXpresso-Config-Tools">NXP MCUXpresso Config Tools</a>
+are required. The corresponding user's guide can be downloaded from:
+<a target="_blank" href="https://www.nxp.com/design/design-center/software/development-software/mcuxpresso-software-and-tools-/mcuxpresso-config-tools-pins-clocks-and-peripherals:MCUXpresso-Config-Tools#documentation">MCUXpresso Config Tools User's Guide</a>
+
+It is assumed that you are familiar with MDK. Refer to
+<a target="_blank" href="https://developer.arm.com/documentation/KGS1/latest/"><b>MDK - Getting Started</b></a> for additional setup information.
+
+Please make sure that you have setup your board correctly. The section \ref important_notes explains how to enable debugging
+by removing the pre-programmed image in Flash that disables debugging.
+
+\section content Content
+
+This manual contains the chapters:
+  - \ref config_pg explains how to setup MDK-Middleware projects using header files and the MCUXpresso Config Tools
+
+\section pack_struct Pack structure
+
+
+Directory or File       | Description
+------------------------|---------------------------------------------------------------------------------
+<b>.\\CMSIS</b>         | CMSIS-Drivers for Ethernet MAC, FLEXCAN, MCI, USB Host and Device
+<b>.\\Documentation</b> | This documentation
+<b>.\\Scripts</b>       | Updated linker scripts for using Event Recorder and debugger scripts
+<b>.\\SDK</b>           | NXP USB Middleware sources necessary for CMSIS USB Device Driver and extended GPIO headers
+<b>.\\Templates</b>     | Various source code templates
+
+\section rev_hist Revision history
+
+
+<table summary="">
+  <tr>
+    <th style="white-space:nowrap;">Version</th><th>Description</th>
+  </tr>
+  <tr>
+    <td>V2.0.0</td>
+    <td>
+      Updated CMSIS Drivers to align with NXP.MIMXRT1052_DFP.18.0.0 pack
+
+      Updated documentation to reflect the latest state of MCUXpresso Config Tools
+
+      CMSIS-Driver:
+      - GPIO: Added GPIO CMSIS-Driver
+      - USB Device: Reworked and merged USB1 and USB2 Device Drivers into a single module
+      - USB Host:
+        - Added hardware-specific implementation for EHCI driver from CMSIS-Driver pack
+        - Removed deprecated USBH HCI driver
+
+      Removed EVKB-IMXRT1050 board examples
+    </td>
+  </tr>
+  <tr>
+    <td>V1.6.0</td>
+    <td>
+      Updated CMSIS Drivers and examples to align with NXP.MIMXRT1052_DFP.17.0.0 pack
+
+      Updated documentation to reflect the latest state of MCUXpresso Config Tools
+
+      CMSIS-Driver:
+      - EMAC/CAN/MCI/USBD: Added volatile qualifier to volatile variables
+      - EMAC:
+        - Fixed SendFrame function for high-speed data transfers
+        - Deprecated ENET_SetCallback function
+      - CAN:
+        - Corrected SetMode function to update unit state
+        - Updated StartReceive function to work with FSL_FLEXCAN driver v2.9.2 or newer
+
+      Examples:
+      - Updated Board_Support files using MCUXpresso Config Tools Version 14.0
+      - Removed needless FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL define
+      - Corrected linker scripts
+    </td>
+  </tr>
+  <tr>
+    <td>V1.5.1</td>
+    <td>
+      Updated CMSIS Drivers and examples to align with NXP.MIMXRT1052_DFP.15.1.0 pack
+
+      Updated documentation to reflect the latest state of MCUXpresso Config Tools
+
+      CMSIS-Driver:
+      - CAN: Corrected ObjectSetFilter function (uninitialized 'mask' variable value)
+
+      Examples:
+      - Updated Board_Support files using MCUXpresso Config Tools Version 12.1
+      - Changed debug target to run from flash
+    </td>
+  </tr>
+  <tr>
+    <td>V1.5.0</td>
+    <td>
+      Updated CMSIS Drivers and examples to align with NXP.MIMXRT1052_DFP.15.0.0 pack
+
+      Updated documentation to reflect the latest state of MCUXpresso Config Tools
+
+      CMSIS-Driver:
+      - Removed RTE_Device.h template
+      - CAN:
+        - Added support for maskable filtering
+        - Corrected index handling for Rx mailbox objects
+        - Corrected filter removal
+      - EMAC: Placed frame buffer descriptors into noncacheable section
+      - MCI:  Placed DMA descriptors into noncacheable section
+
+      Examples:
+      - Added required component (NXP::SDK:Utilities:assert)
+      - Updated Board_Support files using MCUXpresso Config Tools Version 12.0
+      - Updated linker files
+      - Renamed retarget_user.c to retarget_stdio.c
+    </td>
+  </tr>
+  <tr>
+    <td>V1.4.0</td>
+    <td>
+      Updated CMSIS Drivers and examples to align with NXP.MIMXRT1052_DFP.13.1.0 pack
+
+      Updated SDK package to version 2.10.0(2021-07-15)
+
+      PDSC file: Changed schemaVersion (1.7.2)
+
+      Examples:
+      - Removed Blinky example (moved to Keil.IMXRT1050-EVKB_BSP pack)
+      - Added startup_MIMXRT1052.S file
+      - Updated RTX configuration (CMSIS 5.8.0)
+      - Updated Board_Support files using MCUXpresso Config Tools Version 10.0
+      - Removed xip_board component (SDK driver)
+      - Added nic301 component (SDK driver)
+      - Updated linker files
+    </td>
+  </tr>
+  <tr>
+    <td>V1.3.0</td>
+    <td>
+      Updated CMSIS Drivers and examples to align with NXP.MIMXRT1052_DFP.12.3.0 pack
+
+      Updated SDK package to version 2.9.1(2021-01-20)
+
+      PDSC file: Changed schemaVersion (1.7.1)
+
+      Examples:
+      - Added MIMXRT1052_system component
+      - Removed startup_MIMXRT1052.s, system_MIMXRT1052.c.h, fsl_device_registers.h and MIMXRT1052.h files (generated by NXP.MIMXRT1052_DFP)
+      - Changed Assembler Options to armclang (Auto Select)
+    </td>
+  </tr>
+  <tr>
+    <td>V1.2.1</td>
+    <td>
+      Examples:
+      - Updated all examples correcting build failure with MDK 5.30.
+      - Corrected Debug Connect option to "with Pre-reset" for Debug targets.
+      - Selecting MDK-Plus component variants in Middleware examples for immediate use with MDK Plus license.
+    </td>
+  </tr>
+  <tr>
+    <td>V1.2.0</td>
+    <td>
+      Updated CMSIS Drivers and examples to align with NXP.MIMXRT1052_DFP.12.1.0 pack
+
+      Updated SDK package to version 2.7.0(2019-12-19)
+
+      Examples:
+      - Changed default compiler selection to Arm Compiler 6
+      - USB Device: Updated MS Windows drivers (.inf and .cat files)
+    </td>
+  </tr>
+  <tr>
+    <td>V1.1.0</td>
+    <td>
+      Updated CMSIS Driver and examples to align with NXP.MIMXRT1052_DFP.12.0.0
+
+      CMSIS-Driver:
+      - EMAC: Added support for Arm Compiler 6
+      - CAN:
+        - Updated for resolving incompatibilities with DFP
+        - Corrected SetMode function (endless wait on FRZACK bit)
+        - Added signaling of overrun events
+      - MCI : Get IntteruptFlags from function USDHC_GetInterruptStatusFlags ()
+      - USBD: Corrected Endpoint transfer array size
+
+      SDK:
+      - Updated SDK package to version 2.6.1(2019-07-09)
+
+      SDK_Patch:
+      - Added usb_misc.h
+
+      Scripts:
+      - Updated .ini and .scf files from NXP BSP_12.0.0.
+
+      Examples:
+      - Terminating app_main thread with osThreadExit() to avoid endless loop
+      - Updated Board_Support files using MCUXpresso
+      - Updated retarget_user.c (using latest version of fsl_debug_console.c)
+      - Using debug console from latest NXP DFP
+      - Updated all examples enabling the Event Recorder in debug targets
+    </td>
+  </tr>
+  <tr>
+    <td>V1.0.0</td>
+    <td>
+      Initial release of i.MX RT MDK-Middleware examples and CMSIS-Drivers Pack.
+    </td>
+  </tr>
+</table>
+
+
+*/
+
+/*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
+/**
+\page config_pg Usage instructions
+
+The <b>NXP SDK</b> is an NXP-specific software abstraction layer that provides interfaces to the device-specific peripherals.
+The steps to create a microcontroller application that uses MDK-Middleware and the NXP SDK are:
+-# \subpage sdk_proj
+-# \subpage source_files
+-# \subpage config_project
+-# \subpage config_pinclock "Configure pin and clock settings"
+-# \subpage config_drivers
+-# \subpage implement_code
+-# \subpage printf_retargeting
+-# \subpage debug
+
+\section directory_spec Assumptions
+
+The instructions assume the following:
+- The device you have selected is called <tt>\<selected_device\></tt>, for example \c MIMXRT1052DVL6B
+- The installation directory of this software pack is called <tt>\<PACK_root\></tt>, typically
+  <tt>C:\\>Keil_v5\\ARM\\PACK\\Keil\\iMXRT105x_MWP\\2.0.0</tt>
+- Your project directory is called <tt>\<project_dir\></tt>
+
+\section important_notes Important notes
+
+The EVK board might be initially pre-loaded with an application which disables debug. In such case it is necessary to erase the Flash
+before using the board. Follow this procedure:
+ - Change SW7 switch position to different than initial which is: OFF, ON, ON, OFF
+ - Copy the <b>CMSIS-RTOS Blinky</b> project from Pack Installer and build the \b Release target in µVision
+ - Connect the USB cable to J28 connector (CMSIS-DAP)
+ - Reset the board by pushing button SW4
+ - In µVision, click on <b>Flash -> Erase</b> soon after releasing SW4 push-button
+ - After erasing of the Flash has finished, power-off the board (disconnect from J28)
+ - Set switch SW7 to initial position
+ - Connect USB cable to J28. The board is now ready for debugging.
+*/
+
+/*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
+/**
+\page sdk_proj Create project and add software components
+
+- Open uVision
+- Create a new project based on an NXP MIMXRT105x device. For the EVKB-IMXRT1050 board, select the 
+  NXP:MIMXRT1052:MIMXRT1052xxxxB:MIMXRT1052DVL6B device.
+- In the Manage Run-Time Environment window, select:
+  - <b>Board Support:SDK Project Template: project_template</b>. For the EVKB-IMXRT1050 board, select the \b evkbimxrt1050
+    variant.
+  - <b>CMSIS:RTOS2 (API):Keil RTX5</b>
+  - All <b>CMSIS-Drivers</b> that are required for the application
+  - All <b>Device:SDK Drivers</b> that you wish to use in addition 
+  - Add NXP SDK Utilities from <b>Device:SDK Utilities</b> if required
+    \image html select_components.png
+- Click \b Resolve to add the device startup code and additional CMSIS components
+
+Continue by \ref source_files "copying source files" to the project.
+*/
+
+/*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
+/**
+\page source_files Copy source files to project
+To complete project creation, you need to copy some source files from the pack directory to the project directory. Please
+copy:
+- \c main.c from <tt>\ref directory_spec "\<PACK_root\>"\\Templates</tt> to <tt>\ref directory_spec "\<project_dir\>"</tt> and add it to <b>Source Group 1</b>
+- All files from <tt>\ref directory_spec "\<PACK_root\>"\\Scripts\\Linker</tt> to <tt>\ref directory_spec "\<project_dir\>"\\RTE\\Device\\\ref directory_spec "<selected_device\>"</tt> (overwrite the default ones)
+
+Continue by \ref config_project "configuring the project".
+*/
+
+/*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
+/**
+\page config_project Configure the project
+
+Go to <b>Project - Options for Target...</b> and do the following:
+- On the <b>Linker</b> tab:
+  - disable <b>Use Memory Layout from Target Dialog</b>
+  - add <tt>6314</tt> in the <b>disable Warnings</b> box
+  - select <tt>.\\RTE\\Device\\\ref directory_spec "<selected_device\>"\\MIMXRT1052xxxxx_flexspi_nor.scf</tt> in case
+    you want to download the program to the target's external Flash memory
+    \image html memory_layout.png
+- On the <b>Debug</b> tab:
+  - select the <b>CMSIS-DAP</b> debugger
+  - If you want to execute and debug from HyperFlash NOR:
+    - enable <b>Load Application at Startup</b> and <b>Run to main()</b>
+    \image html debugger.png
+  - Go to <b>Settings</b> and select <b>SYSRESETREQ</b> as the reset mechanism
+    \image html reset_options.png
+  - If you want to download the program into Flash, go to the <b>Flash Download</b> tab and set the
+    <b>Programming Algorithm</b> to: <b>MIMXRT105x 64mB Hyper Flash</b> and <b>RAM for Algorithm Size</b> to
+    \c 0x00008000
+    \image html flash_download.png
+<br>
+Continue by \ref config_pinclock "configuring the I/O pins and clock".
+*/
+
+/*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
+/**
+\page config_pinclock Configure I/O pins and clock
+
+Most of the drivers require pin and clock configuration that is done with NXP's MCUXpresso Config Tools.
+
+\section config_pinclock_pre Prerequisites
+
+- Download and install the <a target="_blank" href="https://www.nxp.com/support/developer-resources/software-development-tools/mcuxpresso-software-and-tools/mcuxpresso-config-tools-pins-clocks-peripherals:MCUXpresso-Config-Tools?&tab=Design_Tools_Tab">NXP MCUXpresso Config Tools</a>
+- To be able to see all supported devices (including the i.MXRT family), you need an Internet connection
+
+\section config_pinclock_use Use the tools
+
+The following steps are required to create the configuration (enter the values that are marked \b bold):
+
+- Start the NXP MCUXpresso Config Tools \n
+- Check <b>Create a new configuration based on an existing IDE/toolchain project</b> and click <b>Finish</b>.\n
+  (Make sure your Keil uVision project is saved otherwise importer won't be able to find the source files.) \n
+\image html create_new_config.png
+- Select <b>Close and Update Code</b> when the <b>Config Tools Overview</b> window opens.
+\image html config_tools_overview.png
+- <b>Update Files</b> window pops up, press <b>OK</b> to update the source code.
+- From the starting screen, select the <b>Pins</b> tool
+\image html config_tools_started.png
+- Configure pins as required by your project.
+- Go to <b>Tools - Clocks</b>
+- Go to <b>Views - Clocks Diagram</b> and check that all clocks are set as required by your project.
+- Update the code and close MCUXpresso Config Tools when you are done.
+
+  Continue by \ref config_drivers "configuring CMSIS-Drivers".
+*/
+
+/*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
+/**
+\page config_drivers Configure CMSIS-Drivers
+
+For each CMSIS-Driver, the required configuration is explained in depth below:
+  - \subpage evkb_imxrt1050_can
+  - \subpage evkb_imxrt1050_enet
+  - \subpage evkb_imxrt1050_usdhc
+  - \subpage evkb_imxrt1050_usbd
+  - \subpage evkb_imxrt1050_usbh
+
+  Continue by \ref implement_code "adding user code".
+*/
+
+/*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
+/**
+\page implement_code Add user code
+
+In \c main.c, edit the \c app_main function to suit the needs of your application.
+
+Continue by \ref debug "building and debugging the project" or add software components for \ref printf_retargeting "printf debugging".
+*/
+
+/*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
+/**
+\page printf_retargeting printf retargeting
+
+If you wish to use printf-style retargeting via the UART, follow these steps:
+- In the <b>Manage Run-Time Environment</b> window select:
+  - <b>Device:SDK Utilities:assert</b>
+  - <b>Device:SDK Utilities:debug_console</b>
+  - <b>Device:SDK Utilities:serial_manager</b>
+  - <b>Device:SDK Utilities:serial_manager_uart</b>
+  - <b>CMSIS-Compiler:Core</b>
+  - <b>CMSIS-Compiler:STDERR(API):Custom</b>
+  - <b>CMSIS-Compiler:STDIN(API):Custom</b>
+  - <b>CMSIS-Compiler:STDOUT(API):Custom</b> 
+    \image html printf_components.png "Required components for printf debugging"
+- Copy the file \c retarget_stdio.c from <tt>\ref directory_spec "\<PACK_root\>"\\Templates</tt> to <tt>\\\ref directory_spec "\<project_dir\>"</tt> 
+  and add it to the project
+
+Continue by \ref debug "building and debugging the project".
+*/
+
+/*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
+/**
+\page debug Build and debug the application
+
+\section debug_evr Linker scripts for Event Recorder
+
+
+If you are using the <a target="_blank" href="\keilcom/support/man/docs/uv4/uv4_db_dbg_evr.htm">Event Recorder</a>, you need
+to place this software component in uninitialized memory. To do so, overwrite the default linker scripts in the project 
+directory <tt>\ref directory_spec "\<project_dir\>"\\RTE\\Device\\\ref directory_spec "<selected_device\>"</tt> with the 
+updated linker scripts that are located in <tt>\ref directory_spec "\<PACK_root\>"\\Scripts\\Linker</tt>. 
+
+\section build_prj Build the project
+
+To build your project:
+- Go to <b>Project - Build Target</b> or press \b F7
+- The \b Build \b Output window displays errors, warnings, and build messages during the build process. Double-click a
+  message to open the corresponding source file.
+
+\section debug_prj Debug the application
+
+
+Once you have successfully built the project, download it to Flash and start debugging:
+- Go to <b>Flash - Download</b> or press \b F8 (omit this step if you run from RAM)
+- Go to <b>Debug - Start/Stop Debug Session</b> or press <b>CTRL+F5</b> to start a debug session
+*/
