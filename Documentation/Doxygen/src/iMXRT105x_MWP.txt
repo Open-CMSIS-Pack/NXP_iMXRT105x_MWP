@@ -21,16 +21,16 @@ The following
     <th style="white-space:nowrap;">Software pack</th>    <th>Description</th>
   </tr>
   <tr>
-    <td>\b <a target="_blank" href="\keilcom/dd2/pack/#/">ARM.CMSIS.6.0.0 (or higher)</a></td>         <td>Arm CMSIS</td>
+    <td>\b <a target="_blank" href="https://www.keil.arm.com/packs/cmsis-arm/versions/">ARM.CMSIS.6.0.0 (or higher)</a></td>         <td>Arm CMSIS</td>
   </tr>
   <tr>
-    <td>\b <a target="_blank" href="\keilcom/dd2/pack/#/">ARM.CMSIS-Driver.2.9.0 (or higher)</a></td>  <td>Arm CMSIS Drivers for external devices</td>
+    <td>\b <a target="_blank" href="https://www.keil.arm.com/packs/cmsis-driver-arm/versions/">ARM.CMSIS-Driver.2.9.0 (or higher)</a></td>  <td>Arm CMSIS Drivers for external devices</td>
   </tr>
   <tr>
-    <td>\b <a target="_blank" href="\keilcom/dd2/pack/#/">NXP.MIMXRT1051_DFP.18.0.0</a></td>           <td>Device family pack for NXP i.MXRT1051</td>
+    <td>\b <a target="_blank" href="https://www.keil.arm.com/packs/mimxrt1051_dfp-nxp/versions/">NXP.MIMXRT1051_DFP.18.0.0</a></td>           <td>Device family pack for NXP i.MXRT1051</td>
   </tr>
   <tr>
-    <td>\b <a target="_blank" href="\keilcom/dd2/pack/#/">NXP.MIMXRT1052_DFP.18.0.0</a></td>           <td>Device family pack for NXP i.MXRT1052</td>
+    <td>\b <a target="_blank" href="https://www.keil.arm.com/packs/mimxrt1052_dfp-nxp/versions/">NXP.MIMXRT1052_DFP.18.0.0</a></td>           <td>Device family pack for NXP i.MXRT1052</td>
   </tr>
   </tr>
 </table>
