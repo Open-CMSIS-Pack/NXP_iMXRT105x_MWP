@@ -29,7 +29,6 @@ jobs:
         with:
           doxygen-version: 1.9.6
           packchk-version: 1.4.1
-          gen-doc-script: ./Documentation/Doxygen/gen_doc.sh
           doc-path: ./Documentation/html
           gen-pack-script: ./gen_pack.sh
           gen-pack-output: ./output
