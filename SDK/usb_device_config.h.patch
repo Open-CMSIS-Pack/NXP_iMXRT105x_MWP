@@ -1,14 +1,23 @@
 --- ./SDK/middleware/usb/output/npw/device_config/ehci/usb_device_config.h
 +++ ./build/SDK/middleware/usb/output/npw/device_config/ehci/usb_device_config.h
-@@ -52,7 +52,7 @@
+@@ -26,7 +26,7 @@
+ #define USB_DEVICE_CONFIG_KHCI (0U)
  
- /*! @brief CDC ACM instance count */
- #ifndef USB_DEVICE_CONFIG_CDC_ACM
--#define USB_DEVICE_CONFIG_CDC_ACM (0U)
-+#define USB_DEVICE_CONFIG_CDC_ACM (1U)
- #endif
- #ifndef USB_DEVICE_CONFIG_CDC_RNDIS
- #define USB_DEVICE_CONFIG_CDC_RNDIS (0U)
+ /*! @brief EHCI instance count */
+-#define USB_DEVICE_CONFIG_EHCI (1U)
++#define USB_DEVICE_CONFIG_EHCI (2U)
+ 
+ /*! @brief LPC USB IP3511 FS instance count */
+ #define USB_DEVICE_CONFIG_LPCIP3511FS (0U)
+@@ -99,7 +99,7 @@
+ #define USB_DEVICE_CONFIG_SELF_POWER (1U)
+ 
+ /*! @brief How many endpoints are supported in the stack. */
+-#define USB_DEVICE_CONFIG_ENDPOINTS (4U)
++#define USB_DEVICE_CONFIG_ENDPOINTS (8U)
+ 
+ /*! @brief Whether the device task is enabled. */
+ #define USB_DEVICE_CONFIG_USE_TASK (0U)
 @@ -145,7 +145,7 @@
  #define USB_DEVICE_CONFIG_EHCI_MAX_DTD (16U)
  
