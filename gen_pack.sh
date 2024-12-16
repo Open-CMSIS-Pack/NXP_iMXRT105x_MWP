@@ -87,28 +87,29 @@ PACKCHK_DEPS="
 # usage: preprocess <build>
 #   <build>  The build folder
 #
+# shellcheck disable=SC2317
 function preprocess() {
   # add custom steps here to be executed
   # before populating the pack build folder
 
   # Fetch SDK from release assets
-  TAG=$(git describe --tags --abbrev=0 --match="v*")
+  TAG=$(${UTILITY_GIT} describe --tags --abbrev=0 --match="v*")
   echo "Fetching SDK_2_15_100_EVKB-IMXRT1050 from '${TAG}' ..."
-  gh release download "${TAG}" -p SDK_2_15_100_EVKB-IMXRT1050.zip
+  ${UTILITY_GHCLI} release download "${TAG}" -p SDK_2_15_100_EVKB-IMXRT1050.zip
 
   # Extract SDK (NXP)
   echo "Extracting SDK_2_15_100_EVKB-IMXRT1050 ..."
-  7z x "SDK_2_15_100_EVKB-IMXRT1050.zip" -o"$1/SDK_NXP"
+  unarchive "SDK_2_15_100_EVKB-IMXRT1050.zip" "$1/SDK_NXP"
 
   # Create the $1/SDK folder
   mkdir -p "$1/SDK"
 
   # Convert the BSD licence to unix style EOL and redirect (copy) the converted BSD license to the $1/SDK/ folder
-  dos2unix < "$1/SDK_NXP/COPYING-BSD-3" > "$1/SDK/COPYING-BSD-3"
+  ${UTILITY_EOL_CONVERTER['CRLF-to-LF']} < "$1/SDK_NXP/COPYING-BSD-3" > "$1/SDK/COPYING-BSD-3"
 
   # Convert the SW-Content-Register.txt to unix style EOL, exclude not included SW components for this Pack, 
   # and redirect (copy) the converted and updated SW-Content-Register.txt to the $1/SDK/ folder"
-  dos2unix < "$1/SDK_NXP/SW-Content-Register.txt" | \
+  ${UTILITY_EOL_CONVERTER['CRLF-to-LF']} < "$1/SDK_NXP/SW-Content-Register.txt" | \
     sed -e '/SDK_Peripheral_Driver/,/^$/d' \
         -e '/SDK_Device/,/^$/d'            \
         -e '/SDK_Components/,/^$/d'        \
