@@ -1,4 +1,7 @@
 [![Version](https://img.shields.io/github/v/release/Open-CMSIS-Pack/NXP_iMXRT105x_MWP)](https://github.com/Open-CMSIS-Pack/NXP_iMXRT105x_MWP/releases/latest)
+[![License](https://img.shields.io/github/license/Open-CMSIS-Pack/NXP_iMXRT105x_MWP?label=License)](https://github.com/Open-CMSIS-Pack/NXP_iMXRT105x_MWP/blob/main/LICENSE)
+[![Build documentation](https://img.shields.io/github/actions/workflow/status/Open-CMSIS-Pack/NXP_iMXRT105x_MWP/pack.yml?logo=arm&logoColor=0091bd&label=Build%20documentation)](/.github/workflows/gh-pages.yml)
+[![Build pack](https://img.shields.io/github/actions/workflow/status/Open-CMSIS-Pack/NXP_iMXRT105x_MWP/pack.yml?logo=arm&logoColor=0091bd&label=Build%20pack)](/.github/workflows/pack.yml)
 
 # NXP_iMXRT105x_MWP
 
