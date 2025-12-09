@@ -1,7 +1,9 @@
-[![Version](https://img.shields.io/github/v/release/Open-CMSIS-Pack/NXP_iMXRT105x_MWP)](https://github.com/Open-CMSIS-Pack/NXP_iMXRT105x_MWP/releases/latest)
-[![License](https://img.shields.io/github/license/Open-CMSIS-Pack/NXP_iMXRT105x_MWP?label=License)](https://github.com/Open-CMSIS-Pack/NXP_iMXRT105x_MWP/blob/main/LICENSE)
+[![Version](https://img.shields.io/github/v/release/Open-CMSIS-Pack/NXP_iMXRT105x_MWP?label=Release)](https://github.com/Open-CMSIS-Pack/NXP_iMXRT105x_MWP/releases/latest)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-green?label=License)](https://github.com/Open-CMSIS-Pack/NXP_iMXRT105x_MWP/blob/main/LICENSE-Apache-2.0)
+[![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD--3--Clause-green?label=License)](https://github.com/Open-CMSIS-Pack/NXP_iMXRT105x_MWP/blob/main/LICENSE-BSD-3-Clause)
 [![Build documentation](https://img.shields.io/github/actions/workflow/status/Open-CMSIS-Pack/NXP_iMXRT105x_MWP/pack.yml?logo=arm&logoColor=0091bd&label=Build%20documentation)](/.github/workflows/gh-pages.yml)
 [![Build pack](https://img.shields.io/github/actions/workflow/status/Open-CMSIS-Pack/NXP_iMXRT105x_MWP/pack.yml?logo=arm&logoColor=0091bd&label=Build%20pack)](/.github/workflows/pack.yml)
+
 
 # NXP_iMXRT105x_MWP
 
