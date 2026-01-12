@@ -40,7 +40,7 @@ PACK_DIRS="
 # Default: empty
 #
 PACK_BASE_FILES="
-  LICENSE
+  LICENSES
 "
 
 # Specify file names to be deleted from pack build directory

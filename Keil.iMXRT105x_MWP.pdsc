@@ -4,13 +4,11 @@
   <name>iMXRT105x_MWP</name>
   <description>NXP i.MX RT 1051/1052 CMSIS-Drivers</description>
   <url>https://www.keil.com/pack/</url>
-  <license>LICENSE</license>
+  <license>LICENSES</license>
   <licenseSets>
     <licenseSet id="all" default="true" gating="true">
-      <license name="LICENSES"                title="Apache-2.0 AND BSD 3 Clause"                                spdx="Apache-2.0"/>
-      <license name="LICENSE-Apache-2.0"      title="Apache 2.0"                                                 spdx="Apache-2.0"/>
-      <license name="LICENSE-BSD-3-Clause"    title="LICENSE-BSD-3-Clause"                                       spdx="BSD-3-Clause"/>
-      <license name="./SDK/COPYING-BSD-3"     title="BSD License for MCUXpresso Software Development Kit (SDK)"  spdx="BSD-3-Clause"/>
+      <license name="LICENSE-Apache-2.0"   title="Apache 2.0 for CMSIS-Drivers"                                       spdx="Apache-2.0"/>
+      <license name="LICENSE-BSD-3-Clause" title="LICENSE-BSD-3-Clause for MCUXpresso Software Development Kit (SDK)" spdx="BSD-3-Clause"/>
     </licenseSet>
   </licenseSets>
 
