@@ -14,6 +14,8 @@
 
   <releases>
     <release version="2.0.0-dev">
+    <!-- <release version="2.0.0" date="xxxx-xx-xx" deprecated="xxxx-xx-xx"> -->
+      This Software Pack is no longer maintained.
       Updated CMSIS Drivers to align with NXP.MIMXRT1052_DFP.18.0.0 pack
       Updated documentation to reflect the latest state of MCUXpresso Config Tools
       CMSIS-Driver:

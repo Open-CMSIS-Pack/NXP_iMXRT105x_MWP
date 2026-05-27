@@ -7,6 +7,10 @@
 
 # NXP_iMXRT105x_MWP
 
+This repository is **DEPRECATED**!
+
+Development and maintenance of drivers for these devices are no longer provided here. Users requiring drivers for these devices should refer to NXP.
+
 This is the development repository for the **NXP i.MXRT1051/1052 Device Series Middleware Pack (MWP)** - a CMSIS software pack that is designed to work with all compiler toolchains (Arm Compiler, GCC, IAR, LLVM). It is released as [CMSIS software pack](https://www.keil.arm.com/packs/imxrt105x_mwp-keil) and therefore accessible by CMSIS-Pack enabled software development tools.
 
 This MWP provides [CMSIS-Drivers](https://arm-software.github.io/CMSIS_6/latest/Driver) for i.MXRT1051/1052 Device Series which can be used by Middleware.
