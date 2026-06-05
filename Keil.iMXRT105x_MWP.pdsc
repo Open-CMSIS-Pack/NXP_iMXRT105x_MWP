@@ -13,7 +13,7 @@
   </licenseSets>
 
   <releases>
-    <release version="2.0.0-dev" deprecated="2026-06-05">
+    <release version="2.0.0" date="2026-06-05" deprecated="2026-06-05" tag="v2.0.0">
       This Software Pack is deprecated and no longer maintained
       Updated CMSIS Drivers to align with NXP.MIMXRT1052_DFP.18.0.0 pack
       Updated documentation to reflect the latest state of MCUXpresso Config Tools
