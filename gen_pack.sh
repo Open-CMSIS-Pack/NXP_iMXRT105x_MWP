@@ -79,7 +79,7 @@ PACKCHK_DEPS="
 # - release   Tag annotations, or release descriptions (in order)
 # - tag       Tag annotations only
 #
-# PACK_CHANGELOG_MODE="<full|release|tag>"
+PACK_CHANGELOG_MODE="release"
 
 #
 # custom pre-processing steps
